@@ -36,7 +36,8 @@ SECRET_KEY = 'be3cedf8c18649bcc1f839de3e6f71b5'
 DEBUG = False
 
 # Discover our IP address
-ALLOWED_HOSTS = ip_addresses()
+ALLOWED_HOSTS = ['safetyventurecompany.com']
+
 
 # Application definition
 
@@ -121,3 +122,4 @@ STATICFILES_DIRS = [
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Allow Django from all hosts. This snippet is installed from
 # /var/lib/digitalocean/allow_hosts.py
+ALLOWED_HOSTS += ip_addresses()
