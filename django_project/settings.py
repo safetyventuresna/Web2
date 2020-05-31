@@ -22,6 +22,8 @@ def ip_addresses():
     return ip_list
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
+STATIC_DIR = os.path.join(BASE_DIR,"static")
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,7 +33,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'be3cedf8c18649bcc1f839de3e6f71b5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Discover our IP address
 ALLOWED_HOSTS = ip_addresses()
@@ -45,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Webpage'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,7 +66,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR,],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,24 +115,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Allow Django from all hosts. This snippet is installed from
 # /var/lib/digitalocean/allow_hosts.py
-
-import os
-import netifaces
-
-# Find out what the IP addresses are at run time
-# This is necessary because otherwise Gunicorn will reject the connections
-def ip_addresses():
-    ip_list = []
-    for interface in netifaces.interfaces():
-        addrs = netifaces.ifaddresses(interface)
-        for x in (netifaces.AF_INET, netifaces.AF_INET6):
-            if x in addrs:
-                ip_list.append(addrs[x][0]['addr'])
-    return ip_list
-
-# Discover our IP address
-ALLOWED_HOSTS = ip_addresses()
-
