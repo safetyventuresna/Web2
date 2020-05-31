@@ -122,4 +122,4 @@ STATICFILES_DIRS = [
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Allow Django from all hosts. This snippet is installed from
 # /var/lib/digitalocean/allow_hosts.py
-ALLOWED_HOSTS += ip_addresses()
+#ALLOWED_HOSTS += ip_addresses()
